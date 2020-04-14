@@ -58,8 +58,8 @@ namespace CmsShoppingCart
             app.UseRouting();
             app.UseSession();
 
-            app.UseAuthorization();
             app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
