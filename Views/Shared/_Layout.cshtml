@@ -11,7 +11,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CmsShoppingCart</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Your Store</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -55,13 +55,13 @@
         <main role="main" class="pb-3">
             <partial name="_NotificationPartial" />
             <div class="row">
-                <div class="col-3">
+                <div class="col-sm-12 col-md-3">
                     @await Component.InvokeAsync("Categories")
                     <div class="smallcart bg-success mt-3 p-3 text-white">
                         @await Component.InvokeAsync("SmallCart")
                     </div>
                 </div>
-                <div class="col">
+                <div class="col-sm-12 col-md-9">
                     @RenderBody()
                 </div>
             </div>
@@ -70,7 +70,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2020 - CmsShoppingCart - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2020 - Your Store - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
