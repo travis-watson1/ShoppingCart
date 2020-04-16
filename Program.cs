@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CmsShoppingCart.Infrastructure;
 using CmsShoppingCart.Models;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -20,10 +22,11 @@ namespace CmsShoppingCart
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
+                var dbContext = services.GetRequiredService<CmsShoppingCartContext>();
 
                 try
                 {
-                    SeedData.Initialize(services);
+                    dbContext.Database.Migrate();
                 }
                 catch (Exception)
                 {
@@ -40,5 +43,6 @@ namespace CmsShoppingCart
                 {
                     webBuilder.UseStartup<Startup>();
                 });
+
     }
 }
