@@ -13,7 +13,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CmsShoppingCart.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "admin,editor")]
+    //[Authorize(Roles = "admin,editor")]
     [Area("Admin")]
     public class ProductsController : Controller
     {
