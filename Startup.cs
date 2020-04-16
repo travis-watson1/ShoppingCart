@@ -35,7 +35,9 @@ namespace CmsShoppingCart
             services.AddRouting(options => options.LowercaseUrls = true);
             services.AddControllersWithViews();
 
-            services.AddDbContext<CmsShoppingCartContext>(options => options.UseSqlServer(Configuration.GetConnectionString("CmsShoppingCartContext")));
+            services.AddEntityFrameworkNpgsql().AddDbContext<CmsShoppingCartContext>(options =>
+                options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddDbContext<CmsShoppingCartContext>(options => options.UseSqlServer(Configuration.GetConnectionString("CmsShoppingCartContext")));
             services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<CmsShoppingCartContext>()
                 .AddDefaultTokenProviders();
         }
