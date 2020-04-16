@@ -42,6 +42,10 @@ namespace CmsShoppingCart
             {
                 var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
+                var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
+                var databaseUri = new Uri(databaseUrl);
+                var userInfo = databaseUri.UserInfo.Split(':');
+
                 string connStr;
 
                 // Depending on if in development or production, use either Heroku-provided
@@ -53,22 +57,6 @@ namespace CmsShoppingCart
                 }
                 else
                 {
-                    // Use connection string provided at runtime by Heroku.
-                    //var connUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
-
-                    //// Parse connection URL to connection string for Npgsql
-                    //connUrl = connUrl.Replace("postgres://", string.Empty);
-                    //var pgUserPass = connUrl.Split("@")[0];
-                    //var pgHostPortDb = connUrl.Split("@")[1];
-                    //var pgHostPort = pgHostPortDb.Split("/")[0];
-                    //var pgDb = pgHostPortDb.Split("/")[1];
-                    //var pgUser = pgUserPass.Split(":")[0];
-                    //var pgPass = pgUserPass.Split(":")[1];
-                    //var pgHost = pgHostPort.Split(":")[0];
-                    //var pgPort = pgHostPort.Split(":")[1];
-
-                    //connStr = $"Server={pgHost};Port={pgPort};User Id={pgUser};Password={pgPass};Database={pgDb}";
-
                     string _connectionString = Environment.GetEnvironmentVariable("DATABASE_URL");
                     _connectionString.Replace("//", "");
 
@@ -81,7 +69,8 @@ namespace CmsShoppingCart
                     var pgServer = strConn[3];
                     var pgDatabase = strConn[5];
                     var pgPort = strConn[4];
-                    connStr = "host=" + pgServer + ";port=" + pgPort + ";database=" + pgDatabase + ";uid=" + pgUser + ";pwd=" + pgPassword + ";sslmode=Require;Trust Server Certificate=true;Timeout=1000";
+                    connStr = $"User ID={pgUser};Password={pgPassword};Host={pgServer};Port={pgPort};Database={pgDatabase};Pooling=true;Use SSL Stream=True;SSL Mode=Require;TrustServerCertificate=True;"
+                    //connStr = "host=" + pgServer + ";port=" + pgPort + ";database=" + pgDatabase + ";uid=" + pgUser + ";pwd=" + pgPassword + ";sslmode=Require;Trust Server Certificate=true;Timeout=1000";
                 }
 
                 // Whether the connection string came from the local development configuration file
