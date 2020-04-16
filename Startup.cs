@@ -54,20 +54,34 @@ namespace CmsShoppingCart
                 else
                 {
                     // Use connection string provided at runtime by Heroku.
-                    var connUrl = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+                    //var connUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
 
-                    // Parse connection URL to connection string for Npgsql
-                    connUrl = connUrl.Replace("postgres://", string.Empty);
-                    var pgUserPass = connUrl.Split("@")[0];
-                    var pgHostPortDb = connUrl.Split("@")[1];
-                    var pgHostPort = pgHostPortDb.Split("/")[0];
-                    var pgDb = pgHostPortDb.Split("/")[1];
-                    var pgUser = pgUserPass.Split(":")[0];
-                    var pgPass = pgUserPass.Split(":")[1];
-                    var pgHost = pgHostPort.Split(":")[0];
-                    var pgPort = pgHostPort.Split(":")[1];
+                    //// Parse connection URL to connection string for Npgsql
+                    //connUrl = connUrl.Replace("postgres://", string.Empty);
+                    //var pgUserPass = connUrl.Split("@")[0];
+                    //var pgHostPortDb = connUrl.Split("@")[1];
+                    //var pgHostPort = pgHostPortDb.Split("/")[0];
+                    //var pgDb = pgHostPortDb.Split("/")[1];
+                    //var pgUser = pgUserPass.Split(":")[0];
+                    //var pgPass = pgUserPass.Split(":")[1];
+                    //var pgHost = pgHostPort.Split(":")[0];
+                    //var pgPort = pgHostPort.Split(":")[1];
 
-                    connStr = $"Server={pgHost};Port={pgPort};User Id={pgUser};Password={pgPass};Database={pgDb}";
+                    //connStr = $"Server={pgHost};Port={pgPort};User Id={pgUser};Password={pgPass};Database={pgDb}";
+
+                    string _connectionString = Environment.GetEnvironmentVariable("DATABASE_URL");
+                    _connectionString.Replace("//", "");
+
+                    char[] delimiterChars = { '/', ':', '@', '?' };
+                    string[] strConn = _connectionString.Split(delimiterChars);
+                    strConn = strConn.Where(x => !string.IsNullOrEmpty(x)).ToArray();
+
+                    var pgUser = strConn[1];
+                    var pgPassword = strConn[2];
+                    var pgServer = strConn[3];
+                    var pgDatabase = strConn[5];
+                    var pgPort = strConn[4];
+                    connStr = "host=" + pgServer + ";port=" + pgPort + ";database=" + pgDatabase + ";uid=" + pgUser + ";pwd=" + pgPassword + ";sslmode=Require;Trust Server Certificate=true;Timeout=1000";
                 }
 
                 // Whether the connection string came from the local development configuration file
