@@ -40,9 +40,8 @@ namespace CmsShoppingCart
 
             services.AddEntityFrameworkNpgsql().AddDbContext<CmsShoppingCartContext>(options =>
             {
-                var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+                var databaseUrl = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
-                var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
                 var databaseUri = new Uri(databaseUrl);
                 var userInfo = databaseUri.UserInfo.Split(':');
 
@@ -50,7 +49,7 @@ namespace CmsShoppingCart
 
                 // Depending on if in development or production, use either Heroku-provided
                 // connection string, or development connection string from env var.
-                if (env == "Development")
+                if (databaseUrl == "Development")
                 {
                     // Use connection string from file.
                     connStr = Configuration.GetConnectionString("DefaultConnection");
@@ -69,7 +68,8 @@ namespace CmsShoppingCart
                     var pgServer = strConn[3];
                     var pgDatabase = strConn[5];
                     var pgPort = strConn[4];
-                    connStr = $"User ID={pgUser};Password={pgPassword};Host={pgServer};Port={pgPort};Database={pgDatabase};Pooling=true;Use SSL Stream=True;SSL Mode=Require;TrustServerCertificate=True;"
+                    connStr =
+                        $"User ID={pgUser};Password={pgPassword};Host={pgServer};Port={pgPort};Database={pgDatabase};Pooling=true;Use SSL Stream=True;SSL Mode=Require;TrustServerCertificate=True;";
                     //connStr = "host=" + pgServer + ";port=" + pgPort + ";database=" + pgDatabase + ";uid=" + pgUser + ";pwd=" + pgPassword + ";sslmode=Require;Trust Server Certificate=true;Timeout=1000";
                 }
 
