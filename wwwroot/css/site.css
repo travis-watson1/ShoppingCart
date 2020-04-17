@@ -1,6 +1,11 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
+body {
+    /*background-image: url('../images/so-white.png');*/
+    background-image: url('../images/fishnets-and-hearts.png');
+}
+
 a.navbar-brand {
   white-space: normal;
   text-align: center;
@@ -59,8 +64,8 @@ html {
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
 }
 .footer {
   position: absolute;
@@ -141,9 +146,9 @@ form.paypalform {
     left: -3000px;
 }
 
-li.nav-item.logout {
+/*li.nav-item.logout {
     position: absolute;
     top: 10px;
     right: 10px;
     list-style: none;
-}
+}*/

@@ -3,30 +3,23 @@
 @{
     ViewData["Title"] = "Users";
 }
-
+<br/>
 <h1>Users</h1>
-
+<br/>
 <table class="table">
     <thead>
-        <tr>
-            <th>
-                Id
-            </th>
+        <tr class="table-primary">
             <th>
                 Username
             </th>
             <th>
                 Email
             </th>
-            <th></th>
         </tr>
     </thead>
-    <tbody>
 @foreach (var item in Model) {
-        <tr>
-            <td>
-                @item.Id
-            </td>
+    <tbody>
+        <tr class="table-light">
             <td>
                 @item.UserName
             </td>
@@ -34,6 +27,6 @@
                 @item.Email
             </td>
         </tr>
-}
     </tbody>
+}
 </table>

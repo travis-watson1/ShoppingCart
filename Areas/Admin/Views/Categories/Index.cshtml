@@ -3,15 +3,15 @@
 @{
     ViewData["Title"] = "Categories";
 }
-
+<br/>
 <h1>Categories</h1>
-
+<br/>
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-outline-primary">Create New</a>
 </p>
 <table class="table sorting" id="categories">
     <thead>
-        <tr>
+        <tr class="table-primary">
             <th>
                 Name
             </th>
@@ -24,7 +24,7 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr id="id_@item.Id">
+            <tr id="id_@item.Id" class="table-light">
                 <td>
                     @item.Name
                 </td>
@@ -32,8 +32,8 @@
                     @item.Slug
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a class="confirmDeletion" asp-action="Delete" asp-route-id="@item.Id"> | Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a><span> | </span>
+                    <a class="confirmDeletion" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                 </td>
             </tr>
         }
