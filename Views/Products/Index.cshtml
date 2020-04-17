@@ -4,7 +4,7 @@
     ViewData["Title"] = "Products";
 }
 
-<h1 class="display-4 pb-5">All Products</h1>
+<h1 class="display-4 pb-5 text-center">All Products</h1>
 
 <div class="row">
     @foreach (var item in Model)
@@ -16,7 +16,7 @@
                     The product has been added!
                 </p>
             </div>
-            <img src="~/media/products/@item.Image" class="img-fluid" alt="" />
+            <img src="~/media/products/@item.Image" class="img-fluid" alt="" style="width: 200px; height: 200px;" />
             <h4>@item.Name</h4>
             <div>
                 @Html.Raw(item.Description)
