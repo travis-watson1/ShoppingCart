@@ -7,51 +7,58 @@
 
 @if (Model.CartItems.Count > 0)
 {
+    <br/>
     <h1>Cart Overview</h1>
-
+    <br/>
     <div class="cartWrapper">
         <div class="cartbg d-none">
             <h3 class="text-center">Redirecting you to paypal...</h3>
             <img src="~/images/ajax-loader.gif" />
         </div>
-        <table class="table">
+        <table class="table table-striped">
             <tr>
                 <th>Product</th>
                 <th>Quantity</th>
                 <th></th>
-                <th>Price</th>
                 <th>Total</th>
             </tr>
             @foreach (var item in Model.CartItems)
             {
                 <tr>
                     <td>@item.ProductName</td>
-                    <td>@item.Quantity</td>
+                    <td>@item.Quantity ($@item.Price)</td>
                     <td>
-                        <a asp-action="Add" asp-route-id="@item.ProductId" class="btn btn-sm btn-primary">+</a>
-                        <a asp-action="Decrease" asp-route-id="@item.ProductId" class="btn btn-sm btn-success">-</a>
-                        <a asp-action="Remove" asp-route-id="@item.ProductId" class="btn btn-sm btn-danger">Remove</a>
+                        <a asp-action="Add" asp-route-id="@item.ProductId" class="btn btn-sm btn-outline-primary">+</a>
+                        <a asp-action="Decrease" asp-route-id="@item.ProductId" class="btn btn-sm btn-outline-success">-</a>
+                        @*<a asp-action="Remove" asp-route-id="@item.ProductId" class="btn btn-sm btn-outline-danger">Remove</a>*@
                     </td>
-                    <td>@item.Price.ToString("C2")</td>
-                    <td>@Model.CartItems.Where(x => x.ProductId == item.ProductId).Sum(x => x.Quantity * x.Price).ToString("C2")</td>
+                    <td>$@Model.CartItems.Where(x => x.ProductId == item.ProductId).Sum(x => x.Quantity * x.Price)</td>
                 </tr>
             }
             <tr>
-                <td class="text-right" colspan="4">Grand Total: @Model.GrandTotal.ToString("C2")</td>
+                <td class="text-right"  colspan="5">Grand Total: <strong style="margin-right: 20px;">$@Model.GrandTotal</strong></td>
             </tr>
-            <tr>
+            @*<tr>
                 <td class="text-right" colspan="4">
                     <a asp-action="Clear" class="btn btn-danger">Clear Cart</a>
                     <a href="#" class="btn btn-primary checkout">Checkout</a>
                 </td>
-            </tr>
+            </tr>*@
         </table>
+        <br/>
+        <div class="text-right">
+            <a asp-action="Clear" class="btn btn-danger">Clear Cart</a>
+            <a href="#" class="btn btn-primary checkout">Checkout</a>
+        </div>
+        <br/>
     </div>
 
 }
 else
 {
+    <br/>
     <h3 class="display-4 text-center">Your cart is empty.</h3>
+    <br/>
 }
 
 <partial name="~/Views/Cart/_PaypalPartial.cshtml" for="CartItems" />
