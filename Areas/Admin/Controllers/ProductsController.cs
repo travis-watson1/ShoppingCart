@@ -72,7 +72,8 @@ namespace CmsShoppingCart.Areas.Admin.Controllers
                 if(product.ImageUpload != null)
                 {
                     string uploadsDir = Path.Combine(webHostEnvironment.WebRootPath, "media/products");
-                    imageName = Guid.NewGuid().ToString() + "_" + product.ImageUpload.FileName;
+                    //imageName = Guid.NewGuid().ToString() + "_" + product.ImageUpload.FileName;
+                    imageName = product.ImageUpload.FileName;
                     string filePath = Path.Combine(uploadsDir, imageName);
                     FileStream fs = new FileStream(filePath, FileMode.Create);
                     await product.ImageUpload.CopyToAsync(fs);
